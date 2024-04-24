@@ -188,8 +188,16 @@ def main():
     on_gpu: bool
     device: torch.device
     device, devices, on_gpu = nnet_utils.get_device()
+    # gpuが使えるマシンかどうかの確認。
+    # is_available = torch.cuda.is_available()
+    # print("is_gpu_available: %s" % is_available)
 
     print("device: %s, devices: %s, on_gpu: %s" % (device, devices, on_gpu))
+
+    # load nnetで以下のエラーが出てる気がするので、直してみる。
+    # RuntimeError: Attempting to deserialize object on a CUDA device but torch.cuda.is_available() is False. If you are running on a CPU-only machine, please use torch.load with map_location=torch.device('cpu') to map your storages to the CPU.
+    # Saving arguments to saved_models/cube3//args.pkl
+    # map_location=torch.device('cpu')
 
     # load nnet
     nnet: nn.Module
